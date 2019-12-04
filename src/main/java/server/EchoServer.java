@@ -1,7 +1,5 @@
 package server;
 
-import java.nio.charset.Charset;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -12,6 +10,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.bytes.ByteArrayEncoder;
 import io.netty.handler.codec.string.StringEncoder;
+
+import java.nio.charset.Charset;
 
 public class EchoServer {
     private final int port;
@@ -26,7 +26,7 @@ public class EchoServer {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             ServerBootstrap sb = new ServerBootstrap();
-            sb.option(ChannelOption.SO_BACKLOG, 1024);
+            sb.option(ChannelOption.SO_BACKLOG, 4096);
             sb.group(group, bossGroup) // 绑定线程池
                     .channel(NioServerSocketChannel.class) // 指定使用的channel
                     .localAddress(this.port)// 绑定监听端口
