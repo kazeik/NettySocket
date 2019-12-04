@@ -2,7 +2,6 @@ package server;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -45,6 +44,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
      */
     private String getMessage(ByteBuf buf) {
         byte[] con = new byte[buf.readableBytes()];
+        System.out.println("conn的长度= " + con.length);
         buf.readBytes(con);
         try {
             return new String(con, "UTF-8");
@@ -61,6 +61,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         // 第一种：接收字符串时的处理
         ByteBuf buf = (ByteBuf) msg;
+        System.out.println("数据量大小 = " + buf.array().length);
         String rev = getMessage(buf);
         System.out.println("客户端收到服务器数据:\n" + rev);
 
