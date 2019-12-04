@@ -62,7 +62,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         // 第一种：接收字符串时的处理
         ByteBuf buf = (ByteBuf) msg;
         String rev = getMessage(buf);
-        System.out.println("客户端收到服务器数据:" + rev);
+        System.out.println("客户端收到服务器数据:\n" + rev);
 
     }
 
@@ -73,7 +73,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         System.out.println("服务端接收数据完毕..");
         // 第一种方法：写一个空的buf，并刷新写出区域。完成后关闭sock channel连接。
-        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER);//.addListener(ChannelFutureListener.CLOSE);
         // ctx.flush();
         // ctx.flush(); //
         // 第二种方法：在client端关闭channel连接，这样的话，会触发两次channelReadComplete方法。
